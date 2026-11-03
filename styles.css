@@ -324,7 +324,10 @@ section h2 {
 
 .reviews-section {
     max-width: none;
-    background: linear-gradient(135deg, #f5e8d7, #fff6eb);
+    background:
+        radial-gradient(ellipse at 12% 18%, #ffffffb8, transparent 34%),
+        radial-gradient(ellipse at 92% 82%, #efd8bd80, transparent 36%),
+        linear-gradient(135deg, #f5e8d7, #fff8ef 54%, #f6e8d8);
 }
 
 .reviews-inner {
@@ -332,25 +335,158 @@ section h2 {
     margin: auto;
 }
 
+.reviews-eyebrow {
+    display: inline-block;
+    margin: 0 0 12px;
+    padding: 5px 12px;
+    border: 1px solid #e8d2bb;
+    border-radius: 999px;
+    color: #a56a32;
+    background: #fffaf3b8;
+    font-size: .78rem;
+    font-weight: 800;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+}
+
+.reviews-section h2 {
+    margin-bottom: 10px;
+}
+
+.reviews-section .section-intro {
+    max-width: 540px;
+    margin: 0 auto 30px;
+    line-height: 1.65;
+}
+
+.review-viewport {
+    overflow: hidden;
+    padding: 8px 2px 22px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+
+.review-track,
+.review-group {
+    display: flex;
+    width: max-content;
+}
+
+.review-track {
+    animation: review-crawl 48s linear infinite;
+}
+
+.review-group {
+    gap: 18px;
+    padding-right: 18px;
+}
+
+.review-viewport:hover .review-track {
+    animation-play-state: paused;
+}
+
+@keyframes review-crawl {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
 .review {
-    padding: 24px;
+    position: relative;
+    display: flex;
+    flex: 0 0 clamp(270px, 31vw, 340px);
+    flex-direction: column;
+    min-height: 220px;
+    padding: 25px 24px 22px;
+    border-radius: 16px;
+    border-color: #e9dacb;
+    box-shadow: 0 12px 30px #4f2c1d12, 0 2px 6px #4f2c1d08;
+    text-align: left;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.review::before {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    left: 20px;
+    height: 3px;
+    border-radius: 0 0 4px 4px;
+    background: linear-gradient(90deg, #d8a56f, #f0d7b8);
+    content: "";
+}
+
+.review::after {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #f3e8dc;
+    content: "“";
+    font-family: Georgia, serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.review:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 36px #4f2c1d1c, 0 3px 8px #4f2c1d0a;
 }
 
 .review h3 {
     margin: 0;
     color: var(--brown);
+    font-size: .98rem;
 }
 
-.review p:last-child {
-    margin-bottom: 0;
+.review blockquote {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    margin: 4px 0 20px;
     color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.65;
 }
 
 .stars {
-    margin: 0 0 8px;
+    align-self: flex-start;
+    margin: 0 0 12px;
+    padding: 3px 9px;
+    border-radius: 999px;
     color: #d8871e;
-    font-size: 1.2rem;
-    letter-spacing: .08em;
+    background: #fff4e2;
+    font-size: 1.05rem;
+    letter-spacing: .06em;
+}
+
+.review-person {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+}
+
+.review-avatar {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--brown-dark);
+    border: 2px solid #fff;
+    background: linear-gradient(145deg, #f3e3d1, #ead2b8);
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .03em;
+    box-shadow: 0 2px 8px #4f2c1d18;
 }
 
 .contact-section {
@@ -529,6 +665,29 @@ footer a:focus-visible {
         padding: 20px;
     }
 
+    .review-viewport {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+    }
+
+    .review-viewport::-webkit-scrollbar {
+        display: none;
+    }
+
+    .review-track {
+        animation: none;
+    }
+
+    .review-group[aria-hidden="true"] {
+        display: none;
+    }
+
+    .review {
+        flex-basis: min(82vw, 330px);
+        scroll-snap-align: start;
+    }
+
     .footer-content {
         grid-template-columns: 1fr;
         justify-items: center;
@@ -566,5 +725,22 @@ footer a:focus-visible {
         animation: none;
         text-align: center;
         white-space: normal;
+    }
+
+    .review-track {
+        animation: none;
+    }
+
+    .review-group[aria-hidden="true"] {
+        display: none;
+    }
+
+    .review-viewport {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+    }
+
+    .review {
+        scroll-snap-align: start;
     }
 }
